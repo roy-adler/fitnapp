@@ -2,8 +2,7 @@ import 'package:fitnapp/App/Fitness/fitness_plan.dart';
 import 'package:fitnapp/App/Fitness/fitness_plan_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:statusbar/statusbar.dart';
-
-import 'package:fitnapp/App/Exercise/exercise.dart';
+import 'package:fitnapp/Data/Data.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,30 +15,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: Scaffold(
           body: FutureBuilder(
-        builder: (context, snapshot) =>
-            FitnessPlanListView(fitnessPlanList: loadFitnessPlanList()),
+        future: Data().loadFitnessPlans(),
+        builder: (context, snapshot) => snapshot.hasData
+            ? FitnessPlanListView(fitnessPlanList: snapshot.data)
+            : Center(child: Text("Data is loading.")),
       )),
     );
-  }
-
-  List<FitnessPlan> loadFitnessPlanList() {
-    return [
-      FitnessPlan(
-        title: 'Fitnessplan 1',
-        exerciseList: [
-          Exercise(title: 'Exercise 1', reps: 4),
-        ],
-      ),
-      FitnessPlan(
-        title: 'Fitnessplan 2',
-        exerciseList: [
-          Exercise(title: 'Exercise 1'),
-          Exercise(title: 'Exercise 2'),
-          Exercise(title: 'Exercise 3'),
-          Exercise(title: 'Exercise 4'),
-          Exercise(title: 'Exercise 5', weight: 24),
-        ],
-      ),
-    ];
   }
 }
