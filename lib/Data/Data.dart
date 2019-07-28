@@ -5,4 +5,6 @@ import 'package:statusbar/statusbar.dart';
 
 import 'package:fitnapp/App/Exercise/exercise.dart';
 
-class Data {}
+class Data {
+
+}

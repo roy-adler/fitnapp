@@ -15,8 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       home: Scaffold(
-        body: FitnessPlanListView(fitnessPlanList: loadFitnessplanList()),
-      ),
+          body: FutureBuilder(
+        builder: (context, snapshot) =>
+            FitnessPlanListView(fitnessPlanList: loadFitnessPlanList()),
+      )),
     );
   }
 
