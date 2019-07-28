@@ -5,24 +5,10 @@ import 'package:statusbar/statusbar.dart';
 import 'package:flutter/cupertino.dart';
 
 class FitnessPlanListView extends StatelessWidget {
-  List<FitnessPlan> _fitnessPlanList = [
-    FitnessPlan(
-      title: 'Fitnessplan 1',
-      exerciseList: [
-        Exercise(title: 'Exercise 1', reps: 4),
-      ],
-    ),
-    FitnessPlan(
-      title: 'Fitnessplan 2',
-      exerciseList: [
-        Exercise(title: 'Exercise 1'),
-        Exercise(title: 'Exercise 2'),
-        Exercise(title: 'Exercise 3'),
-        Exercise(title: 'Exercise 4'),
-        Exercise(title: 'Exercise 5', weight: 24),
-      ],
-    ),
-  ];
+  List<FitnessPlan> fitnessPlanList;
+
+
+  FitnessPlanListView({this.fitnessPlanList});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +18,8 @@ class FitnessPlanListView extends StatelessWidget {
         middle: Text("Home"),
       ),
       body: ListView.builder(
-          itemCount: _fitnessPlanList.length,
-          itemBuilder: (context, index) => _fitnessPlanList[index]),
+          itemCount: fitnessPlanList.length,
+          itemBuilder: (context, index) => fitnessPlanList[index]),
     );
   }
 }

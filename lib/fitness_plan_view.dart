@@ -1,4 +1,5 @@
 import 'package:fitnapp/exercise.dart';
+import 'package:fitnapp/exercise_list_view.dart';
 import 'package:fitnapp/fitness_plan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +19,19 @@ class FitnessPlanView extends StatelessWidget {
           middle: Text(fitnessPlan.title),
           trailing: GestureDetector(
             onTap: () => Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    fullscreenDialog: true,
-                    builder: (context) => Scaffold(
-                        appBar: CupertinoNavigationBar(
-                          middle: Text('ExerciseList'),
-                        ),
-                        body: Center(child: Text("Nix"))))),
+              context,
+              CupertinoPageRoute(
+                fullscreenDialog: true,
+                builder: (context) => ExerciseListView(
+                  fitnessPlan: fitnessPlan,
+                  exerciseList: [
+                    Exercise(
+                      title: "Okay",
+                    )
+                  ],
+                ),
+              ),
+            ),
             child: Text(
               'Add',
               style: TextStyle(color: CupertinoColors.activeBlue),
