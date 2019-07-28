@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:statusbar/statusbar.dart';
 
 class FitnessPlanView extends StatelessWidget {
-  FitnessPlan _fitnessPlan;
+  FitnessPlan fitnessPlan;
 
-  FitnessPlanView(this._fitnessPlan);
+  FitnessPlanView(this.fitnessPlan);
 
   @override
   Widget build(BuildContext context) {
     StatusBar.color(Color.fromRGBO(255, 0, 0, 0.0));
     return Scaffold(
       appBar: AppBar(
-        title: Text(_fitnessPlan.title),
+        title: Text(fitnessPlan.title),
       ),
       body: ListView.builder(
-          itemCount: _fitnessPlan.exerciseList.length,
-          itemBuilder: (context, index) => Container()),
+          itemCount: fitnessPlan.exerciseList.length,
+          itemBuilder: (context, index) => fitnessPlan.exerciseList[index]),
     );
   }
 }
