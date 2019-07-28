@@ -1,5 +1,4 @@
 import 'package:fitnapp/App/Fitness/fitness_plan.dart';
-import 'package:flutter/material.dart';
 import 'package:fitnapp/App/Exercise/exercise.dart';
 
 class Data {
@@ -21,6 +20,16 @@ class Data {
           Exercise(title: 'Exercise 5', weight: 24),
         ],
       ),
+    ];
+  }
+
+  Future<List<Exercise>> loadExercises() async {
+    return [
+      Exercise(title: 'Exercise 1'),
+      Exercise(title: 'Exercise 2'),
+      Exercise(title: 'Exercise 3'),
+      Exercise(title: 'Exercise 4'),
+      Exercise(title: 'Exercise 5', weight: 24),
     ];
   }
 }
