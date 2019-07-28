@@ -5,6 +5,7 @@ class Exercise extends StatelessWidget {
   String title;
   int sets;
   int reps;
+  int weight;
   String imagePath;
 
   Exercise({
@@ -12,6 +13,7 @@ class Exercise extends StatelessWidget {
     this.sets = 3,
     this.reps = 12,
     this.imagePath = "images/no_image.jpg",
+    this.weight = 0,
   });
 
   @override
@@ -27,6 +29,7 @@ class Exercise extends StatelessWidget {
               sets: sets,
               reps: reps,
               imagePath: imagePath,
+              weight: weight,
             ),
           ),
         ),

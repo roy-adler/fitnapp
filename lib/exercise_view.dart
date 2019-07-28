@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fitnapp/exercise.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseView extends StatelessWidget {
@@ -11,8 +12,9 @@ class ExerciseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(exercise.title),
+      appBar: CupertinoNavigationBar(
+        previousPageTitle: "Back",
+        middle: Text(exercise.title),
       ),
       body: Padding(
         padding: EdgeInsets.all(32),
@@ -29,8 +31,11 @@ class ExerciseView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("Sets:  " + exercise.sets.toString()),
-                  Text("Reps: " + exercise.reps.toString()),
+                  Text("Sets:       " + exercise.sets.toString()),
+                  Text("Reps:      " + exercise.reps.toString()),
+                  (exercise.weight > 0)
+                      ? Text("weight:   " + exercise.weight.toString() + "Kg")
+                      : Container(),
                 ],
               ),
             ),
