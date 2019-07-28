@@ -13,7 +13,7 @@ class ExerciseView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CupertinoNavigationBar(
-        previousPageTitle: "Back",
+        previousPageTitle: "Exercises",
         middle: Text(exercise.title),
       ),
       body: Padding(
