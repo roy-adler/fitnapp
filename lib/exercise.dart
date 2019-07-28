@@ -5,8 +5,14 @@ class Exercise extends StatelessWidget {
   String title;
   int sets;
   int reps;
+  String imagePath;
 
-  Exercise({@required this.title, this.sets = 3, this.reps = 12});
+  Exercise({
+    @required this.title,
+    this.sets = 3,
+    this.reps = 12,
+    this.imagePath = "images/no_image.jpg",
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,12 @@ class Exercise extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) => ExerciseView(
-            exercise: Exercise(title: title, sets: sets, reps: reps),
+            exercise: Exercise(
+              title: title,
+              sets: sets,
+              reps: reps,
+              imagePath: imagePath,
+            ),
           ),
         ),
       ),
