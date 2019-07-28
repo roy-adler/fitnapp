@@ -19,16 +19,19 @@ class FitnessPlanView extends StatelessWidget {
           middle: Text(fitnessPlan.title),
           trailing: GestureDetector(
             onTap: () => Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    fullscreenDialog: true,
-                    builder: (context) => ExerciseListView(
-                          exerciseList: [
-                            Exercise(
-                              title: "Okay",
-                            )
-                          ],
-                        ))),
+              context,
+              CupertinoPageRoute(
+                fullscreenDialog: true,
+                builder: (context) => ExerciseListView(
+                  fitnessPlan: fitnessPlan,
+                  exerciseList: [
+                    Exercise(
+                      title: "Okay",
+                    )
+                  ],
+                ),
+              ),
+            ),
             child: Text(
               'Add',
               style: TextStyle(color: CupertinoColors.activeBlue),
