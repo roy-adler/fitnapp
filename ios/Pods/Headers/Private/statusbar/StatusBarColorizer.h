@@ -1,0 +1,1 @@
+../../../../.symlinks/plugins/statusbar/ios/Classes/StatusBarColorizer.h
