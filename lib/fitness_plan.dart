@@ -1,4 +1,5 @@
 import 'package:fitnapp/exercise.dart';
+import 'package:fitnapp/fitness_plan_view.dart';
 import 'package:flutter/material.dart';
 
 class FitnessPlan extends StatelessWidget {
@@ -9,6 +10,16 @@ class FitnessPlan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ListTile(
+      title: Text(title),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FitnessPlanView(
+            FitnessPlan(title: title, exerciseList: exerciseList),
+          ),
+        ),
+      ),
+    );
   }
 }
