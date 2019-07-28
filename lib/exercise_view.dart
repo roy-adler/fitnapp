@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fitnapp/exercise.dart';
 import 'package:flutter/material.dart';
 
@@ -12,16 +14,28 @@ class ExerciseView extends StatelessWidget {
       appBar: AppBar(
         title: Text(exercise.title),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(32),
-            height: 150.0,
-            color: Colors.green,
-          ),
-          Text("Sets: " + exercise.sets.toString()),
-          Text("Reps" + exercise.reps.toString()),
-        ],
+      body: Padding(
+        padding: EdgeInsets.all(32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(),
+              height: 150.0,
+              child: Image.asset(exercise.imagePath),
+            ),
+            Padding(
+              padding: EdgeInsets.all(32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("Sets:  " + exercise.sets.toString()),
+                  Text("Reps: " + exercise.reps.toString()),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
