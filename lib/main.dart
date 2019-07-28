@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  List<FitnessPlan> loadFitnessplanList() {
+  List<FitnessPlan> loadFitnessPlanList() {
     return [
       FitnessPlan(
         title: 'Fitnessplan 1',
