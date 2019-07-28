@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fitnapp/exercise.dart';
+import 'package:fitnapp/App/Exercise/exercise.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-import 'package:fitnapp/exercise_view.dart';
+import 'package:fitnapp/App/Exercise/exercise_view.dart';
 import 'package:flutter/material.dart';
 
 class Exercise extends StatelessWidget {

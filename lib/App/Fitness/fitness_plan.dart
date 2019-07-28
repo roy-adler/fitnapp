@@ -1,5 +1,5 @@
-import 'package:fitnapp/exercise.dart';
-import 'package:fitnapp/fitness_plan_view.dart';
+import 'package:fitnapp/App/Exercise/exercise.dart';
+import 'package:fitnapp/App/Fitness/fitness_plan_view.dart';
 import 'package:flutter/material.dart';
 
 class FitnessPlan extends StatelessWidget {

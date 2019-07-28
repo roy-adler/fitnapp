@@ -1,6 +1,6 @@
-import 'package:fitnapp/exercise.dart';
-import 'package:fitnapp/exercise_list_view.dart';
-import 'package:fitnapp/fitness_plan.dart';
+import 'package:fitnapp/App/Exercise/exercise.dart';
+import 'package:fitnapp/App/Exercise/exercise_list_view.dart';
+import 'package:fitnapp/App/Fitness/fitness_plan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:statusbar/statusbar.dart';
