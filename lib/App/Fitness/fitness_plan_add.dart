@@ -11,20 +11,34 @@ class FitnessPlanAdd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController TEC = TextEditingController();
     return Scaffold(
       appBar: CupertinoNavigationBar(
         previousPageTitle: "Overview",
         middle: Text("Add Fitnessplan"),
       ),
       body: Center(
-        child: FloatingActionButton(
-          onPressed: () {
-            Data.addFitnessPlan(FitnessPlan(
-              title: "Hello" + Random().nextInt(1982).toString(),
-            ));
-            Navigator.maybePop(context);
-            setStateFunction();
-          },
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          height: 120,
+          child: Flex(
+            direction: Axis.vertical,
+            children: <Widget>[
+              Expanded(
+                child: CupertinoTextField(controller: TEC,),
+              ),
+              CupertinoButton(
+                onPressed: () {
+                  Data.addFitnessPlan(FitnessPlan(
+                    title: TEC.text,
+                  ));
+                  Navigator.maybePop(context);
+                  setStateFunction();
+                },
+                child: Text("Add"),
+              ),
+            ],
+          ),
         ),
       ),
     );
