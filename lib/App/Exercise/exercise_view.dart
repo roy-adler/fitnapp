@@ -20,7 +20,10 @@ class ExerciseView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              decoration: BoxDecoration(),
+              decoration: BoxDecoration(
+                border:
+                    Border.all(width: 2.3, color: CupertinoColors.black),
+              ),
               height: 150.0,
               child: Image.asset(exercise.imagePath),
             ),

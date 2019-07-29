@@ -10,11 +10,10 @@ abstract class Data {
   // Gets ExerciseList
   static List<Exercise> theExerciseList() {
     return [
-      Exercise(title: 'Exercise 1'),
-      Exercise(title: 'Exercise 2'),
-      Exercise(title: 'Exercise 3'),
-      Exercise(title: 'Exercise 4'),
-      Exercise(title: 'Exercise 5'),
+      Exercise(title: 'Crunches', imagePath: 'images/crunches.jpg'),
+      Exercise(title: 'Pull Up', imagePath: 'images/pull_up.jpg'),
+      Exercise(title: 'Push Up', imagePath: 'images/push_up.jpg'),
+      Exercise(title: 'Sit Up', imagePath: 'images/sit_up.jpg'),
     ];
   }
 
