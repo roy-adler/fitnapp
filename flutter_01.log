@@ -1,0 +1,46 @@
+Flutter crash report; please file at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter --no-color run --machine --track-widget-creation --device-id=ceac350fd02637ac6328e87989351f9416883882 lib/main.dart
+
+## exception
+
+SocketException: SocketException: Write failed (OS Error: Broken pipe, errno = 32), port = 0
+
+```
+null```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel master, v1.8.2-pre.213, on Mac OS X 10.14.5 18F132, locale de-DE)
+    • Flutter version 1.8.2-pre.213 at /Users/royadler/local/flutter
+    • Framework revision c1a118bcc3 (2 days ago), 2019-07-27 15:20:44 -0700
+    • Engine revision 38ac5f30a7
+    • Dart version 2.5.0 (build 2.5.0-dev.1.0 0ca1582afd)
+
+[✓] Android toolchain - develop for Android devices (Android SDK version 29.0.0)
+    • Android SDK at /Users/royadler/Library/Android/sdk
+    • Android NDK location not configured (optional; useful for native profiling support)
+    • Platform android-29, build-tools 29.0.0
+    • Java binary at: /Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin/java
+    • Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1343-b01)
+    • All Android licenses accepted.
+
+[✓] Xcode - develop for iOS and macOS (Xcode 10.2)
+    • Xcode at /Applications/Xcode-10.2.app/Contents/Developer
+    • Xcode 10.2, Build version 10E125
+    • CocoaPods version 1.7.3
+
+[✓] Android Studio (version 3.4)
+    • Android Studio at /Applications/Android Studio.app/Contents
+    • Flutter plugin version 37.1.1
+    • Dart plugin version 183.6270
+    • Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1343-b01)
+
+[✓] Connected device (1 available)
+    • roiPhone • ceac350fd02637ac6328e87989351f9416883882 • ios • iOS 12.3.1
+
+• No issues found!
+```

@@ -1,7 +1,5 @@
-import 'package:fitnapp/App/Exercise/exercise.dart';
 import 'package:fitnapp/App/Fitness/fitness_plan.dart';
 import 'package:flutter/material.dart';
-import 'package:statusbar/statusbar.dart';
 import 'package:flutter/cupertino.dart';
 
 class FitnessPlanListView extends StatelessWidget {
@@ -12,7 +10,6 @@ class FitnessPlanListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StatusBar.color(Color.fromRGBO(255, 0, 0, 0.0));
     return Scaffold(
       appBar: CupertinoNavigationBar(
         middle: Text("Home"),

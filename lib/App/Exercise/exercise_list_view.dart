@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:fitnapp/App/Exercise/exercise.dart';
 import 'package:fitnapp/App/Exercise/exercise_view.dart';
 import 'package:fitnapp/App/Fitness/fitness_plan.dart';
 import 'package:fitnapp/Data/Data.dart';
@@ -8,10 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseListView extends StatelessWidget {
-  List<Exercise> exerciseList;
   FitnessPlan fitnessPlan;
 
-  ExerciseListView({@required this.fitnessPlan, @required this.exerciseList});
+  ExerciseListView({@required this.fitnessPlan});
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +17,13 @@ class ExerciseListView extends StatelessWidget {
         middle: Text("ExerciseList"),
       ),
       body: FutureBuilder(
-          future: Data().loadExercises(),
+          future: Data.loadExercises(),
           builder: (context, snapshot) {
             return snapshot.hasData
                 ? ListView.builder(
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) => ListTile(
-                      title: Text(exerciseList[index].title),
+                      title: Text(snapshot.data[index].title),
                       trailing: CupertinoButton(
                         child: Text('Detail'),
                         onPressed: () => Navigator.push(

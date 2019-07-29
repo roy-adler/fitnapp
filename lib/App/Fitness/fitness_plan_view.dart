@@ -1,9 +1,7 @@
-import 'package:fitnapp/App/Exercise/exercise.dart';
 import 'package:fitnapp/App/Exercise/exercise_list_view.dart';
 import 'package:fitnapp/App/Fitness/fitness_plan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:statusbar/statusbar.dart';
 
 class FitnessPlanView extends StatelessWidget {
   FitnessPlan fitnessPlan;
@@ -12,7 +10,6 @@ class FitnessPlanView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StatusBar.color(Color.fromRGBO(255, 0, 0, 0.0));
     return Scaffold(
       appBar: CupertinoNavigationBar(
           previousPageTitle: "Overview",
@@ -22,14 +19,8 @@ class FitnessPlanView extends StatelessWidget {
               context,
               CupertinoPageRoute(
                 fullscreenDialog: true,
-                builder: (context) => ExerciseListView(
-                  fitnessPlan: fitnessPlan,
-                  exerciseList: [
-                    Exercise(
-                      title: "Okay",
-                    )
-                  ],
-                ),
+                builder: (context) =>
+                    ExerciseListView(fitnessPlan: fitnessPlan),
               ),
             ),
             child: Text(

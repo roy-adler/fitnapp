@@ -1,7 +1,6 @@
 package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
-import mo.dyna.statusbar.StatusbarPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -11,7 +10,6 @@ public final class GeneratedPluginRegistrant {
     if (alreadyRegisteredWith(registry)) {
       return;
     }
-    StatusbarPlugin.registerWith(registry.registrarFor("mo.dyna.statusbar.StatusbarPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {
