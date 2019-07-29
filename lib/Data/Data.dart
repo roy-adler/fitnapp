@@ -1,35 +1,10 @@
 import 'dart:convert';
-
 import 'package:fitnapp/App/Fitness/fitness_plan.dart';
 import 'package:fitnapp/App/Exercise/exercise.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class Data {
-  static List<FitnessPlan> _fitnessPlanList;
   static String _fitnessPlanListKey = "FitnessPlanList";
-
-  // Public
-  // Init Data
-  static void init() {
-    _initFitnessPlanList();
-  }
-
-  // Fitnessplan can be updated if it exists
-  static _updateFitnessPlan(FitnessPlan element) {
-    int index = _fitnessPlanList
-        .indexWhere((FitnessPlan FP) => FP.title == element.title);
-    if (!index.isNegative) {
-      _fitnessPlanList.removeAt(index);
-      _fitnessPlanList.insert(index, element);
-    }
-    _updateFitnessPlanList();
-  }
-
-  // Public
-  // Gets Future of FitnessPlan
-  static Future<List<FitnessPlan>> fitnessPlanListFuture() async {
-    return _fitnessPlanList;
-  }
 
   // Public
   // Gets ExerciseList
@@ -39,25 +14,8 @@ abstract class Data {
       Exercise(title: 'Exercise 2'),
       Exercise(title: 'Exercise 3'),
       Exercise(title: 'Exercise 4'),
+      Exercise(title: 'Exercise 5'),
     ];
-  }
-
-  // Init FitnessPlanList from Data
-  static void _initFitnessPlanList() async {
-    _fitnessPlanList = [];
-    List<String> fitnessPlanNameList = await _getFitnessPlanNameList();
-    for (int i = 0; i < fitnessPlanNameList.length; i++) {
-      _fitnessPlanList.add(await _getFitnessPlanData(fitnessPlanNameList[i]));
-    }
-  }
-
-  // TODO: Check this System
-  static _updateFitnessPlanList() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.clear();
-    for (int index = 0; index < _fitnessPlanList.length; index++) {
-      _addFitnessPlanData(_fitnessPlanList[index]);
-    }
   }
 
   // Gets fitnessPlanNameList or returns empty
