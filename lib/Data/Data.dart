@@ -7,39 +7,7 @@ abstract class Data {
 
   static void init() {
     _fitnessPlanList = [];
-    addFitnessplan(
-      FitnessPlan(
-        title: 'Fitnessplan 1',
-        exerciseList: [
-          Exercise(title: 'Exercise 1', reps: 4),
-        ],
-      ),
-    );
-    addFitnessplan(
-      FitnessPlan(
-        title: 'Fitnessplan 2',
-        exerciseList: [
-          Exercise(title: 'Exercise 1'),
-          Exercise(title: 'Exercise 2'),
-          Exercise(title: 'Exercise 3'),
-          Exercise(title: 'Exercise 4'),
-          Exercise(title: 'Exercise 5', weight: 24),
-        ],
-      ),
-    );
-    addFitnessplan(
-      FitnessPlan(
-        title: 'Fitnessplan 3',
-        exerciseList: [
-          Exercise(title: 'Exercise 1'),
-          Exercise(title: 'Exercise 2e'),
-          Exercise(title: 'Exercise 3f'),
-          Exercise(title: 'Exerqcise 4'),
-          Exercise(title: 'Exergcise 5', weight: 24),
-        ],
-      ),
-    );
-
+    
     _exerciseList = [
       Exercise(title: 'Exercise 1'),
       Exercise(title: 'Exercise 2'),
