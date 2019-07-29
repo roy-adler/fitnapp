@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fitnapp/Data/Data.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -33,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       home: Scaffold(
         body: FutureBuilder(
-          future: Data.loadFitnessPlans(),
+          future: Data.fitnessPlanListFuture(),
           builder: (context, snapshot) {
             return Stack(
               children: <Widget>[
@@ -56,32 +55,15 @@ class _MyAppState extends State<MyApp> {
                   child: FloatingActionButton(
                     heroTag: "Add",
                     onPressed: () => setState(
-                      () => Data.addFitnessplan(
+                      () => Data.addFitnessPlan(
                         FitnessPlan(
-                          title: "Hello",
+                          title:
+                              "Hello" + (snapshot.data.length + 1).toString(),
                           exerciseList: [Exercise(title: "adsadf")],
                         ),
                       ),
                     ),
                     child: Icon(CupertinoIcons.add),
-                  ),
-                ),
-                Positioned(
-                  bottom: 32,
-                  right: 128,
-                  child: FloatingActionButton(
-                    heroTag: "Clear",
-                    onPressed: () => setState(
-                      () => Data.updateFitnessplan(
-                        FitnessPlan(
-                          title: "Fitnessplan 2",
-                          exerciseList: [
-                            Exercise(title: "adsad"),
-                          ],
-                        ),
-                      ),
-                    ),
-                    child: Icon(CupertinoIcons.clear),
                   ),
                 ),
                 Positioned(

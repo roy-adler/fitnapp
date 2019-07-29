@@ -5,55 +5,111 @@ import 'package:fitnapp/App/Exercise/exercise.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class Data {
-  static List<FitnessPlan> _fitnessPlanList = [];
-  static List<Exercise> _exerciseList;
+  static List<FitnessPlan> _fitnessPlanList;
+  static String _fitnessPlanListKey = "FitnessPlanList";
 
+  // Public
+  // Init Data
   static void init() {
-    _fitnessPlanList = [];
-
-    readExercises();
+    _initFitnessPlanList();
   }
 
-  static addFitnessplan(FitnessPlan FP) {
-    _fitnessPlanList.add(FP);
+  // Public
+  // adds Fitnessplan locally
+  static addFitnessPlan(FitnessPlan fitnessPlan) {
+    _fitnessPlanList.add(fitnessPlan);
+    _updateFitnessPlanList();
   }
 
-  static updateFitnessplan(FitnessPlan element) {
-    print("UpdateFitnessplan");
+  // Fitnessplan can be updated if it exists
+  static _updateFitnessPlan(FitnessPlan element) {
     int index = _fitnessPlanList
         .indexWhere((FitnessPlan FP) => FP.title == element.title);
-    _fitnessPlanList.removeAt(index);
-    _fitnessPlanList.insert(index, element);
+    if (!index.isNegative) {
+      _fitnessPlanList.removeAt(index);
+      _fitnessPlanList.insert(index, element);
+    }
   }
 
-  static Future<List<FitnessPlan>> loadFitnessPlans() async {
+  // Public
+  // Gets Future of FitnessPlan
+  static Future<List<FitnessPlan>> fitnessPlanListFuture() async {
     return _fitnessPlanList;
   }
 
-  static Future<List<Exercise>> loadExercises() async {
-    return _exerciseList;
+  // Public
+  // Gets ExerciseList
+  static List<Exercise> exerciseList() {
+    return [
+      Exercise(title: 'Exercise 1'),
+      Exercise(title: 'Exercise 2'),
+      Exercise(title: 'Exercise 3'),
+      Exercise(title: 'Exercise 4'),
+    ];
   }
 
-  static void saveReadExercises(List<Exercise> exercises) async {
-    final String exerciseKey = 'exerciseKey';
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setString(exerciseKey, json.encode(exercises));
-
-    exercises = [];
-    json
-        .decode(sp.getString(exerciseKey))
-        .forEach((map) => exercises.add(new Exercise.fromJson(map)));
-    _exerciseList = exercises;
+  // Init FitnessPlanList from Data
+  static void _initFitnessPlanList() async {
+    _fitnessPlanList = [];
+    List<String> fitnessPlanNameList = await _getFitnessPlanNameList();
+    for (int i = 0; i < fitnessPlanNameList.length; i++) {
+      _fitnessPlanList.add(await getFitnessPlanData(fitnessPlanNameList[i]));
+    }
   }
 
-  static void readExercises() async {
-    final String exerciseKey = 'exerciseKey';
+  //
+  // TODO: Important
+  static _updateFitnessPlanList() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.clear();
+    for (int index = 0; index < _fitnessPlanList.length; index++) {
+      _addFitnessPlanData(_fitnessPlanList[index]);
+    }
+  }
+
+  // Gets fitnessPlanNameList or returns empty
+  static _getFitnessPlanNameList() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    if (sp.getStringList(_fitnessPlanListKey) == null) {
+      sp.setStringList(_fitnessPlanListKey, <String>[]);
+    }
+    return sp.getStringList(_fitnessPlanListKey);
+  }
+
+  // FitnessPlan is being stored in Data
+  static void _addFitnessPlanData(FitnessPlan fitnessPlan) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
-    List<Exercise> exercises = [];
+    List<String> fitnessPlanNameList = await _getFitnessPlanNameList();
+    fitnessPlanNameList.add(fitnessPlan.title);
+    sp.setStringList(_fitnessPlanListKey, fitnessPlanNameList);
+    addExerciseData(fitnessPlan.title, fitnessPlan.exerciseList);
+  }
+
+  // FitnessPlan is being converted from Name to FitnessPlan
+  static Future<FitnessPlan> getFitnessPlanData(String fitnessPlanTitle) async {
+    return FitnessPlan(
+        title: fitnessPlanTitle,
+        exerciseList: await getExerciseData(fitnessPlanTitle));
+  }
+
+  // Exercise is being stored in Data
+  static void addExerciseData(
+      String fitnessPlanTitle, List<Exercise> exerciseList) async {
+    final String exerciseKey = fitnessPlanTitle;
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setString(exerciseKey, json.encode(exerciseList));
+  }
+
+  // Returns ExerciseList from FitnessPlanName
+  static Future<List<Exercise>> getExerciseData(String fitnessPlanTitle) async {
+    final String exerciseKey = fitnessPlanTitle;
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    List<Exercise> exerciseList = [];
     json
         .decode(sp.getString(exerciseKey))
-        .forEach((map) => exercises.add(new Exercise.fromJson(map)));
-    _exerciseList = exercises;
+        .forEach((map) => exerciseList.add(new Exercise.fromJson(map)));
+    return exerciseList;
   }
 }

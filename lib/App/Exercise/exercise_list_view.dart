@@ -16,29 +16,24 @@ class ExerciseListView extends StatelessWidget {
         //previousPageTitle: "Exercises",
         middle: Text("ExerciseList"),
       ),
-      body: FutureBuilder(
-          future: Data.loadExercises(),
-          builder: (context, snapshot) {
-            return snapshot.hasData
-                ? ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) => ListTile(
-                      title: Text(snapshot.data[index].title),
-                      trailing: CupertinoButton(
-                        child: Text('Detail'),
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ExerciseView(exercise: snapshot.data[index]),
-                          ),
-                        ),
-                      ),
-                      onTap: null,
-                    ),
-                  )
-                : Container(); // TODO: Create Case
-          }),
+      body: ListView.builder(
+        itemCount: Data.exerciseList().length,
+        itemBuilder: (context, index) => ListTile(
+          title: Text(Data.exerciseList()[index].title),
+          trailing: CupertinoButton(
+            child: Text('Detail'),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    ExerciseView(exercise: Data.exerciseList()[index]),
+              ),
+            ),
+          ),
+          // TODO: Add Exercise to FitnessPlan
+          onTap: null,
+        ),
+      ),
     );
   }
 }
