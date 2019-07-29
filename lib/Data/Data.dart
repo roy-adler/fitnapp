@@ -21,6 +21,16 @@ abstract class Data {
     _updateFitnessPlanList();
   }
 
+  static addExercise(FitnessPlan fitnessPlan, int index) {
+    List<Exercise> exerciseList = fitnessPlan.exerciseList;
+    Exercise exerciseToAdd = theExerciseList()[index];
+    exerciseList.add(exerciseToAdd);
+    _updateFitnessPlan(FitnessPlan(
+      title: fitnessPlan.title,
+      exerciseList: exerciseList,
+    ));
+  }
+
   // Fitnessplan can be updated if it exists
   static _updateFitnessPlan(FitnessPlan element) {
     int index = _fitnessPlanList
@@ -29,6 +39,7 @@ abstract class Data {
       _fitnessPlanList.removeAt(index);
       _fitnessPlanList.insert(index, element);
     }
+    _updateFitnessPlanList();
   }
 
   // Public
@@ -39,7 +50,7 @@ abstract class Data {
 
   // Public
   // Gets ExerciseList
-  static List<Exercise> exerciseList() {
+  static List<Exercise> theExerciseList() {
     return [
       Exercise(title: 'Exercise 1'),
       Exercise(title: 'Exercise 2'),
@@ -53,7 +64,7 @@ abstract class Data {
     _fitnessPlanList = [];
     List<String> fitnessPlanNameList = await _getFitnessPlanNameList();
     for (int i = 0; i < fitnessPlanNameList.length; i++) {
-      _fitnessPlanList.add(await getFitnessPlanData(fitnessPlanNameList[i]));
+      _fitnessPlanList.add(await _getFitnessPlanData(fitnessPlanNameList[i]));
     }
   }
 
@@ -69,6 +80,7 @@ abstract class Data {
   // Gets fitnessPlanNameList or returns empty
   static _getFitnessPlanNameList() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
+    // TODO: ClearFuntion: sp.clear();
     if (sp.getStringList(_fitnessPlanListKey) == null) {
       sp.setStringList(_fitnessPlanListKey, <String>[]);
     }
@@ -82,18 +94,19 @@ abstract class Data {
     List<String> fitnessPlanNameList = await _getFitnessPlanNameList();
     fitnessPlanNameList.add(fitnessPlan.title);
     sp.setStringList(_fitnessPlanListKey, fitnessPlanNameList);
-    addExerciseData(fitnessPlan.title, fitnessPlan.exerciseList);
+    _addExerciseData(fitnessPlan.title, fitnessPlan.exerciseList);
   }
 
   // FitnessPlan is being converted from Name to FitnessPlan
-  static Future<FitnessPlan> getFitnessPlanData(String fitnessPlanTitle) async {
+  static Future<FitnessPlan> _getFitnessPlanData(
+      String fitnessPlanTitle) async {
     return FitnessPlan(
         title: fitnessPlanTitle,
-        exerciseList: await getExerciseData(fitnessPlanTitle));
+        exerciseList: await _getExerciseData(fitnessPlanTitle));
   }
 
   // Exercise is being stored in Data
-  static void addExerciseData(
+  static void _addExerciseData(
       String fitnessPlanTitle, List<Exercise> exerciseList) async {
     final String exerciseKey = fitnessPlanTitle;
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -101,7 +114,8 @@ abstract class Data {
   }
 
   // Returns ExerciseList from FitnessPlanName
-  static Future<List<Exercise>> getExerciseData(String fitnessPlanTitle) async {
+  static Future<List<Exercise>> _getExerciseData(
+      String fitnessPlanTitle) async {
     final String exerciseKey = await fitnessPlanTitle;
     SharedPreferences sp = await SharedPreferences.getInstance();
     String jsonExercise = await sp.getString(exerciseKey);

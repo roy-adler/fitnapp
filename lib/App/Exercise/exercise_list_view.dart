@@ -4,11 +4,16 @@ import 'package:fitnapp/Data/Data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ExerciseListView extends StatelessWidget {
+class ExerciseListView extends StatefulWidget {
   FitnessPlan fitnessPlan;
 
   ExerciseListView({@required this.fitnessPlan});
 
+  @override
+  _ExerciseListViewState createState() => _ExerciseListViewState();
+}
+
+class _ExerciseListViewState extends State<ExerciseListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,22 +22,21 @@ class ExerciseListView extends StatelessWidget {
         middle: Text("ExerciseList"),
       ),
       body: ListView.builder(
-        itemCount: Data.exerciseList().length,
+        itemCount: Data.theExerciseList().length,
         itemBuilder: (context, index) => ListTile(
-          title: Text(Data.exerciseList()[index].title),
-          trailing: CupertinoButton(
-            child: Text('Detail'),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    ExerciseView(exercise: Data.exerciseList()[index]),
+            title: Text(Data.theExerciseList()[index].title),
+            trailing: CupertinoButton(
+              child: Text('Detail'),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ExerciseView(exercise: Data.theExerciseList()[index]),
+                ),
               ),
             ),
-          ),
-          // TODO: Add Exercise to FitnessPlan
-          onTap: null,
-        ),
+            // TODO: Add Exercise to FitnessPlan
+            onTap: () => Data.addExercise(widget.fitnessPlan, index)),
       ),
     );
   }
