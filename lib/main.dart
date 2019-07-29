@@ -1,4 +1,3 @@
-import 'package:fitnapp/App/Fitness/fitness_plan.dart';
 import 'package:fitnapp/App/Fitness/fitness_plan_add.dart';
 import 'package:fitnapp/App/Fitness/fitness_plan_list_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,12 +21,13 @@ class _MyAppState extends State<MyApp> {
             pageContext,
             CupertinoPageRoute(
               fullscreenDialog: true,
-              builder: (pageContext) => FitnessPlanAdd(),
+              builder: (pageContext) =>
+                    FitnessPlanAdd(setStateFunction: () => setState(() => null)),
             ),
           ),
-          child: Icon(
-            CupertinoIcons.add,
-            color: CupertinoColors.activeBlue,
+          child: Text(
+            'Add',
+            style: TextStyle(color: CupertinoColors.activeBlue),
           ),
         ),
       ),
@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 (snapshot.hasData)
                     ? (snapshot.data.length > 0)
-                        ? FitnessPlanListView(fitnessPlanList: snapshot.data)
+                        ? FitnessPlanListView(fitnessPlanList: snapshot.data, setStateFunction: () => setState(() => null))
                         : homePage(context, Center(child: Text("No entries")))
                     : Center(
                         child: Column(
@@ -58,23 +58,6 @@ class _MyAppState extends State<MyApp> {
                           ],
                         ),
                       ),
-                Positioned(
-                  bottom: 32,
-                  right: 32,
-                  child: FloatingActionButton(
-                    heroTag: "Add",
-                    onPressed: () => setState(() {
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          fullscreenDialog: true,
-                          builder: (context) => FitnessPlanAdd(),
-                        ),
-                      );
-                    }),
-                    child: Icon(CupertinoIcons.add),
-                  ),
-                ),
                 Positioned(
                   bottom: 32,
                   left: 32,

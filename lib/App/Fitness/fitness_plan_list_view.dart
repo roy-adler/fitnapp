@@ -3,11 +3,17 @@ import 'package:fitnapp/App/Fitness/fitness_plan_add.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class FitnessPlanListView extends StatelessWidget {
+class FitnessPlanListView extends StatefulWidget {
   List<FitnessPlan> fitnessPlanList;
+  Function() setStateFunction;
 
-  FitnessPlanListView({this.fitnessPlanList});
+  FitnessPlanListView({this.fitnessPlanList, this.setStateFunction});
 
+  @override
+  _FitnessPlanListViewState createState() => _FitnessPlanListViewState();
+}
+
+class _FitnessPlanListViewState extends State<FitnessPlanListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,18 +24,20 @@ class FitnessPlanListView extends StatelessWidget {
             context,
             CupertinoPageRoute(
               fullscreenDialog: true,
-              builder: (pageContext) => FitnessPlanAdd(),
+              builder: (pageContext) => FitnessPlanAdd(
+                setStateFunction: widget.setStateFunction,
+              ),
             ),
           ),
-          child: Icon(
-            CupertinoIcons.add,
-            color: CupertinoColors.activeBlue,
+          child: Text(
+            'Add',
+            style: TextStyle(color: CupertinoColors.activeBlue),
           ),
         ),
       ),
       body: ListView.builder(
-          itemCount: fitnessPlanList.length,
-          itemBuilder: (context, index) => fitnessPlanList[index]),
+          itemCount: widget.fitnessPlanList.length,
+          itemBuilder: (context, index) => widget.fitnessPlanList[index]),
     );
   }
 }
