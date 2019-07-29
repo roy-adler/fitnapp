@@ -9,6 +9,19 @@ class FitnessPlanAdd extends StatelessWidget {
 
   FitnessPlanAdd({this.setStateFunction});
 
+  bool _submit(TextEditingController TEC, BuildContext pageContext) {
+    if (TEC.text.replaceAll(" ", "") == "") {
+      return false;
+    } else {
+      Data.addFitnessPlan(FitnessPlan(
+        title: TEC.text,
+      ));
+      Navigator.maybePop(pageContext);
+      setStateFunction();
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     TextEditingController TEC = TextEditingController();
@@ -25,15 +38,16 @@ class FitnessPlanAdd extends StatelessWidget {
             direction: Axis.vertical,
             children: <Widget>[
               Expanded(
-                child: CupertinoTextField(controller: TEC,),
+                child: CupertinoTextField(
+                  autofocus: true,
+                  controller: TEC,
+                  placeholder: "Fitnessplan Name",
+                  onSubmitted: (String input) => _submit(TEC, context),
+                ),
               ),
               CupertinoButton(
                 onPressed: () {
-                  Data.addFitnessPlan(FitnessPlan(
-                    title: TEC.text,
-                  ));
-                  Navigator.maybePop(context);
-                  setStateFunction();
+                  _submit(TEC, context);
                 },
                 child: Text("Add"),
               ),
