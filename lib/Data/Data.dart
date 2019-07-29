@@ -69,29 +69,3 @@ abstract class Data {
     _exerciseList = exercises;
   }
 }
-
-class Membership {
-  int _index;
-  String _name;
-  String _id;
-
-  Membership(this._index, this._name, this._id);
-
-  Membership.fromJson(Map<String, dynamic> m) {
-    _index = m['index'];
-    _name = m['name'];
-    _id = m['id'];
-  }
-
-  String get id => _id;
-
-  String get name => _name;
-
-  int get index => _index;
-
-  Map<String, dynamic> toJson() => {
-        'index': _index,
-        'name': _name,
-        'id': _id,
-      };
-}
