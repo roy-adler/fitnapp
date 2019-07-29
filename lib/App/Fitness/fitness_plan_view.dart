@@ -1,26 +1,32 @@
 import 'package:fitnapp/App/Exercise/exercise_list_view.dart';
 import 'package:fitnapp/App/Fitness/fitness_plan.dart';
+import 'package:fitnapp/Data/Data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class FitnessPlanView extends StatelessWidget {
+class FitnessPlanView extends StatefulWidget {
   FitnessPlan fitnessPlan;
 
   FitnessPlanView(this.fitnessPlan);
 
   @override
+  _FitnessPlanViewState createState() => _FitnessPlanViewState();
+}
+
+class _FitnessPlanViewState extends State<FitnessPlanView> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CupertinoNavigationBar(
           previousPageTitle: "Overview",
-          middle: Text(fitnessPlan.title),
+          middle: Text(widget.fitnessPlan.title),
           trailing: GestureDetector(
             onTap: () => Navigator.push(
               context,
               CupertinoPageRoute(
                 fullscreenDialog: true,
                 builder: (context) =>
-                    ExerciseListView(fitnessPlan: fitnessPlan),
+                    ExerciseListView(fitnessPlan: widget.fitnessPlan),
               ),
             ),
             child: Text(
@@ -28,12 +34,15 @@ class FitnessPlanView extends StatelessWidget {
               style: TextStyle(color: CupertinoColors.activeBlue),
             ),
           )),
-      body: (fitnessPlan.exerciseList != null &&
-              fitnessPlan.exerciseList.length > 0)
-          ? ListView.builder(
-              itemCount: fitnessPlan.exerciseList.length,
-              itemBuilder: (context, index) => fitnessPlan.exerciseList[index])
-          : Center(child: Text("No Exercises yet.")),
+      body: FutureBuilder(
+        future: Data.getExerciseData(widget.fitnessPlan.title),
+        builder: (context, snapshot) =>
+            (snapshot.hasData && snapshot.data.length > 0)
+                ? ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) => snapshot.data[index])
+                : Center(child: Text("No Exercises yet.")),
+      ),
     );
   }
 }

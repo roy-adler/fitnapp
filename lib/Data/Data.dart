@@ -14,23 +14,6 @@ abstract class Data {
     _initFitnessPlanList();
   }
 
-  // Public
-  // adds Fitnessplan locally
-  static addFitnessPlan(FitnessPlan fitnessPlan) {
-    _fitnessPlanList.add(fitnessPlan);
-    _updateFitnessPlanList();
-  }
-
-  static addExercise(FitnessPlan fitnessPlan, int index) {
-    List<Exercise> exerciseList = fitnessPlan.exerciseList;
-    Exercise exerciseToAdd = theExerciseList()[index];
-    exerciseList.add(exerciseToAdd);
-    _updateFitnessPlan(FitnessPlan(
-      title: fitnessPlan.title,
-      exerciseList: exerciseList,
-    ));
-  }
-
   // Fitnessplan can be updated if it exists
   static _updateFitnessPlan(FitnessPlan element) {
     int index = _fitnessPlanList
@@ -102,7 +85,7 @@ abstract class Data {
       String fitnessPlanTitle) async {
     return FitnessPlan(
         title: fitnessPlanTitle,
-        exerciseList: await _getExerciseData(fitnessPlanTitle));
+        exerciseList: await getExerciseData(fitnessPlanTitle));
   }
 
   // Exercise is being stored in Data
@@ -114,8 +97,7 @@ abstract class Data {
   }
 
   // Returns ExerciseList from FitnessPlanName
-  static Future<List<Exercise>> _getExerciseData(
-      String fitnessPlanTitle) async {
+  static Future<List<Exercise>> getExerciseData(String fitnessPlanTitle) async {
     final String exerciseKey = await fitnessPlanTitle;
     SharedPreferences sp = await SharedPreferences.getInstance();
     String jsonExercise = await sp.getString(exerciseKey);
@@ -130,5 +112,48 @@ abstract class Data {
         .decode(sp.getString(exerciseKey))
         .forEach((map) => exerciseList.add(new Exercise.fromJson(map)));
     return exerciseList;
+  }
+
+  static Future<List<FitnessPlan>> getFitnessPlanList() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    //sp.clear();
+    List<String> fitnessPlanNameList = await _getFitnessPlanNameList();
+    List<FitnessPlan> fitnessPlanList = [];
+    for (int index = 0; index < fitnessPlanNameList.length; index++) {
+      fitnessPlanList.add(FitnessPlan(
+        title: fitnessPlanNameList[index],
+        exerciseList: await getExerciseData(fitnessPlanNameList[index]),
+      ));
+    }
+    return fitnessPlanList;
+  }
+
+  // Public
+  // adds Fitnessplan locally
+  static addFitnessPlan(FitnessPlan fitnessPlan) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    List<FitnessPlan> fitnessPlanList = await getFitnessPlanList();
+    fitnessPlanList.add(fitnessPlan);
+    setFitnessPlanList(fitnessPlanList);
+  }
+
+  static void setFitnessPlanList(List<FitnessPlan> fitnessPlanList) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    clear();
+    for (int index = 0; index < fitnessPlanList.length; index++) {
+      _addFitnessPlanData(fitnessPlanList[index]);
+    }
+  }
+
+  static clear() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.clear();
+  }
+
+  static addExercise(FitnessPlan fitnessPlan, Exercise exerciseToAdd) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    List<Exercise> exerciseList = fitnessPlan.exerciseList;
+    exerciseList.add(exerciseToAdd);
+    _addExerciseData(fitnessPlan.title, exerciseList);
   }
 }

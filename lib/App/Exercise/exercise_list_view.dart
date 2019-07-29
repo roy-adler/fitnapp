@@ -36,7 +36,11 @@ class _ExerciseListViewState extends State<ExerciseListView> {
               ),
             ),
             // TODO: Add Exercise to FitnessPlan
-            onTap: () => Data.addExercise(widget.fitnessPlan, index)),
+            onTap: () {
+              Data.addExercise(
+                  widget.fitnessPlan, Data.theExerciseList()[index]);
+              Navigator.maybePop(context);
+            }),
       ),
     );
   }

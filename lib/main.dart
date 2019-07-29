@@ -8,10 +8,6 @@ import 'package:fitnapp/Data/Data.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
-  MyApp() {
-    Data.init();
-  }
-
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -32,7 +28,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       home: Scaffold(
         body: FutureBuilder(
-          future: Data.fitnessPlanListFuture(),
+          future: Data.getFitnessPlanList(),
           builder: (context, snapshot) {
             return Stack(
               children: <Widget>[
@@ -54,14 +50,11 @@ class _MyAppState extends State<MyApp> {
                   right: 32,
                   child: FloatingActionButton(
                     heroTag: "Add",
-                    onPressed: () => setState(
-                      () => Data.addFitnessPlan(
-                        FitnessPlan(
-                          title:
-                              "Hello" + (snapshot.data.length + 1).toString(),
-                        ),
-                      ),
-                    ),
+                    onPressed: () => setState(() {
+                      Data.addFitnessPlan(FitnessPlan(
+                        title: "Hello" + (snapshot.data.length + 1).toString(),
+                      ));
+                    }),
                     child: Icon(CupertinoIcons.add),
                   ),
                 ),
@@ -70,8 +63,10 @@ class _MyAppState extends State<MyApp> {
                   left: 32,
                   child: FloatingActionButton(
                     heroTag: "Init",
-                    onPressed: () => setState(() => Data.init()),
-                    child: Icon(CupertinoIcons.volume_off),
+                    onPressed: () => setState(() {
+                      Data.clear();
+                    }),
+                    child: Icon(CupertinoIcons.clear_circled),
                   ),
                 ),
               ],
