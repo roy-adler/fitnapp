@@ -34,18 +34,6 @@ abstract class Data {
     return _exerciseList;
   }
 
-  static readFile() async {
-    List<Membership> memberships = [];
-    final String membershipKey = 'someuniquestring';
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setString(membershipKey, json.encode(memberships));
-
-    memberships = [];
-    json
-        .decode(sp.getString(membershipKey))
-        .forEach((map) => memberships.add(new Membership.fromJson(map)));
-  }
-
   static void saveReadExercises(List<Exercise> exercises) async {
     final String exerciseKey = 'exerciseKey';
     SharedPreferences sp = await SharedPreferences.getInstance();
