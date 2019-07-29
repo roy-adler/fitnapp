@@ -1,5 +1,5 @@
-import 'package:fitnapp/App/Exercise/exercise.dart';
 import 'package:fitnapp/App/Fitness/fitness_plan.dart';
+import 'package:fitnapp/App/Fitness/fitness_plan_add.dart';
 import 'package:fitnapp/App/Fitness/fitness_plan_list_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +13,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Scaffold homePage(Widget widget) {
+  Scaffold homePage(BuildContext pageContext, Widget widget) {
     return Scaffold(
       appBar: CupertinoNavigationBar(
         middle: Text("Home"),
+        trailing: GestureDetector(
+          onTap: () => Navigator.push(
+            pageContext,
+            CupertinoPageRoute(
+              fullscreenDialog: true,
+              builder: (pageContext) => FitnessPlanAdd(),
+            ),
+          ),
+          child: Icon(
+            CupertinoIcons.add,
+            color: CupertinoColors.activeBlue,
+          ),
+        ),
       ),
       body: widget,
     );
@@ -35,7 +48,7 @@ class _MyAppState extends State<MyApp> {
                 (snapshot.hasData)
                     ? (snapshot.data.length > 0)
                         ? FitnessPlanListView(fitnessPlanList: snapshot.data)
-                        : homePage(Center(child: Text("No entries")))
+                        : homePage(context, Center(child: Text("No entries")))
                     : Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -51,9 +64,13 @@ class _MyAppState extends State<MyApp> {
                   child: FloatingActionButton(
                     heroTag: "Add",
                     onPressed: () => setState(() {
-                      Data.addFitnessPlan(FitnessPlan(
-                        title: "Hello" + (snapshot.data.length + 1).toString(),
-                      ));
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          fullscreenDialog: true,
+                          builder: (context) => FitnessPlanAdd(),
+                        ),
+                      );
                     }),
                     child: Icon(CupertinoIcons.add),
                   ),
