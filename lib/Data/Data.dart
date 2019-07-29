@@ -57,8 +57,7 @@ abstract class Data {
     }
   }
 
-  //
-  // TODO: Important
+  // TODO: Check this System
   static _updateFitnessPlanList() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.clear();
@@ -103,8 +102,14 @@ abstract class Data {
 
   // Returns ExerciseList from FitnessPlanName
   static Future<List<Exercise>> getExerciseData(String fitnessPlanTitle) async {
-    final String exerciseKey = fitnessPlanTitle;
+    final String exerciseKey = await fitnessPlanTitle;
     SharedPreferences sp = await SharedPreferences.getInstance();
+    String jsonExercise = await sp.getString(exerciseKey);
+
+    // TODO: Check this Error
+    if (jsonExercise == "null") {
+      return await <Exercise>[];
+    }
 
     List<Exercise> exerciseList = [];
     json

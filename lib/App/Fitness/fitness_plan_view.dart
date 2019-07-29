@@ -28,9 +28,12 @@ class FitnessPlanView extends StatelessWidget {
               style: TextStyle(color: CupertinoColors.activeBlue),
             ),
           )),
-      body: ListView.builder(
-          itemCount: fitnessPlan.exerciseList.length,
-          itemBuilder: (context, index) => fitnessPlan.exerciseList[index]),
+      body: (fitnessPlan.exerciseList != null &&
+              fitnessPlan.exerciseList.length > 0)
+          ? ListView.builder(
+              itemCount: fitnessPlan.exerciseList.length,
+              itemBuilder: (context, index) => fitnessPlan.exerciseList[index])
+          : Center(child: Text("No Exercises yet.")),
     );
   }
 }

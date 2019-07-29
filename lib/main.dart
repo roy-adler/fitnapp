@@ -59,7 +59,6 @@ class _MyAppState extends State<MyApp> {
                         FitnessPlan(
                           title:
                               "Hello" + (snapshot.data.length + 1).toString(),
-                          exerciseList: [Exercise(title: "adsadf")],
                         ),
                       ),
                     ),
