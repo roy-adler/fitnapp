@@ -1,6 +1,6 @@
 # fitnapp
 
-Fitnapp_Description
+An app to create fitness training plans.
 
 ## Getting Started
 
